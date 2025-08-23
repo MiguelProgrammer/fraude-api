@@ -1,0 +1,231 @@
+openapi: 3.0.1
+info:
+  title: Swagger Api Acme - Emissão de Apólices - OpenAPI 3.0
+  description: |-
+    Itau Challenge Project
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: miguel.silva@mackenzista.com.br
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.12
+tags:
+  - name: apolice
+    description: "Cria, atualiza uma apólice"
+
+  - name: apolice-consulta
+    description: "Consulta uma apólice"
+
+paths:
+
+  /v1/apolice/emite:
+    post:
+      tags:
+        - apolice
+      summary: cria uma apólice
+      description: Cria uma apólice a partir de atributos
+      operationId: geraApolice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Apolice"
+      responses:
+        '201':
+          description: Apólice criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApoliceResponse"
+        '400':
+          description: Não foi possível criar apólice
+
+  /v1/apolice/consulta:
+    get:
+      tags:
+        - apolice-consulta
+      summary: Consulta uma apólice
+      description: Retorna uma apólice
+      operationId: consutaApolice
+      parameters:
+        - in: query
+          name: clienteId
+          schema:
+            type: integer
+        - in: query
+          name: solicitacaoId
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Apólice encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApoliceResponse"
+        '400':
+          description: Não foi possível localizar apólice
+        '404':
+          description: Erro tentar localizar apólice
+
+
+components:
+  schemas:
+
+    ApoliceConsulta:
+      type: object
+      properties:
+        clienteId:
+          type: integer
+        produtoId:
+          type: integer
+        categoria:
+          $ref: "#/components/schemas/CategoriaSeguro"
+        metodoPagemento:
+          $ref: "#/components/schemas/TipoPagamento"
+        valorTotalPremioMensal:
+          type: number
+          format: double
+        valorSegurado:
+          type: number
+          format: double
+        coberturas:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoCobertura"
+        assistencias:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoAssistencia"
+
+    Apolice:
+      type: object
+      properties:
+        clienteId:
+          type: integer
+        produtoId:
+          type: integer
+        categoria:
+          $ref: "#/components/schemas/CategoriaSeguro"
+        metodoPagemento:
+          $ref: "#/components/schemas/TipoPagamento"
+        valorTotalPremioMensal:
+          type: number
+          format: double
+        valorSegurado:
+          type: number
+          format: double
+        coberturas:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoCobertura"
+        assistencias:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoAssistencia"
+
+    ApoliceResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        clienteId:
+          type: integer
+        produtoId:
+          type: integer
+        categoria:
+          $ref: "#/components/schemas/CategoriaSeguro"
+        metodoPagemento:
+          $ref: "#/components/schemas/TipoPagamento"
+        status:
+          $ref: "#/components/schemas/Estado"
+        dataInicio:
+          type: string
+          format: date
+        dataFinalizacao:
+          type: string
+          format: date
+        valorTotalPremioMensal:
+          type: number
+          format: double
+        valorSegurado:
+          type: number
+          format: double
+        coberturas:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoCobertura"
+        assistencias:
+          type: array
+          items:
+            $ref: "#/components/schemas/TipoAssistencia"
+        historico:
+          type: array
+          items:
+            $ref: "#/components/schemas/Historico"
+
+
+    TipoAssistencia:
+      type: string
+      enum:
+        - GUINCHO
+        - TROCA_DE_OLEO
+        - CHAVEIRO
+
+    TipoCobertura:
+      type: string
+      enum:
+        - ROUBO
+        - PERDA_TOTAL
+        - COLISAO_TERCEIROS
+
+    TipoCanalVendas:
+      type: string
+      enum:
+        - MOBILE
+        - WHATSAPP
+        - WEB_SITE
+
+    TipoPagamento:
+      type: string
+      enum:
+        - CONTA_CORRENTE
+        - DEBITO_EM_CONTA
+        - BOLETO
+        - PIX
+
+    CategoriaSeguro:
+      type: string
+      enum:
+        - VIDA
+        - AUTO
+        - RESIDENCIAL
+        - EMPRESARIAL
+
+    Estado:
+      type: string
+      enum:
+        - RECEBIDO
+        - VALIDADO
+        - PENDENTE
+        - REJEITADO
+        - APROVADO
+        - CANCELADA
+      x-enum-descriptions:
+        - RECEBIDO - Quando uma solicitação é criada ela inicia com estado recebido e só pode avançar para o estado validado ou cancelado. Neste momento o sistema coleta as informações iniciais da solicitação e aguarda a análise pela API de fraudes, que validará a solicitação com base na avaliação de risco do cliente e determinará o perfil do cliente.
+        - VALIDADO Após a consulta à API de Fraudes deverão ser aplicadas regras de validação adicionais conforme a classificação do cliente e caso sejam satisfeitas as condições a solicitação passa para o estado validado, caso contrário rejeitado. A API de fraudes avalia o risco da solicitação, considerando os dados do cliente e informações pertinentes, e retorna uma classificação de risco: regular, alto risco, preferencial ou sem Informação.
+        - PENDENTE Após a validação a solicitação deverá ficar com estado pendente até que ocorra a confirmação de pagamento e a autorização da subscrição. Uma vez pendente, a solicitação só pode ter seu estado alterado para aprovado, rejeitado, cancelado ou pendente novamente (casos de reprocessamento).
+        - REJEITADO Conforme a classificação do cliente se ao aplicar regras adicionais de validação as condições não forem satisfeitas a solicitação deverá ter seu estado alterado para rejeitado ou caso pagamento seja negado ou a autorização de subscrição seja negada.
+        - APROVADO Após receber a confirmação de pagamento e autorização de subscrição o estado da solicitação deve ser alterado para aprovado e não poderá mais ser cancelada.
+        - CANCELADA A qualquer momento a solicitação pode ser cancelada por parte do cliente (exceto quando já aprovada ou rejeitada). Uma vez cancelada, a solicitação não deverá permitir novas alterações de estado, pois seu ciclo de vida terá sido encerrado.
+
+    Historico:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Estado'
+        data:
+          type: string
+          format: date
