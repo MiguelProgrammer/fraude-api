@@ -1,9 +1,8 @@
-package com.challenge.itau.apolice.framework.web.resource;
+package com.acme.apolice.framework.web.resource;
 
-
-import com.challenge.itau.apolice.adapter.controller.ApoliceController;
-import com.challenge.itau.apolice.adapter.inbound.Apolice;
-import com.challenge.itau.apolice.adapter.inbound.ApoliceResponse;
+import com.acme.apolice.adapter.controller.ApoliceController;
+import com.acme.apolice.adapter.inbound.dto.Apolice;
+import com.acme.apolice.adapter.inbound.dto.ApoliceResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

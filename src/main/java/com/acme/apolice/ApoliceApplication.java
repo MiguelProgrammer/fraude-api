@@ -1,8 +1,7 @@
-package com.challenge.itau.apolice;
+package com.acme.apolice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class ApoliceApplication {

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  apolice-app:
+    build:
+      context: .          # raiz do projeto (onde está pom.xml, src/, Dockerfile)
+      dockerfile: Dockerfile
+    container_name: minha-apolice-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - apolice-db
+    environment:
+      SPRING_PROFILES_ACTIVE: developer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://apolice-db:5432/apolice
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+
+  apolice-db:
+    image: postgres:15-alpine
+    container_name: apolice-db
+    environment:
+      POSTGRES_DB: apolice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pg-admin-web:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    environment:
+      - PGWEB_DATABASE_URL=postgres://postgres:postgres@apolice-db:5432/apolice?sslmode=disable
+      - PGWEB_WAIT_FOR_DB=10s
+    ports:
+      - "8081:8081"
+    depends_on:
+      - apolice-db
+
+volumes:
+  pgdata:
