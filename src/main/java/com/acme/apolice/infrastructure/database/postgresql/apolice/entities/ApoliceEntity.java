@@ -9,11 +9,14 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "apolice")
+@SequenceGenerator(name = "apolice_sequence")
 public class ApoliceEntity implements Serializable {
 
     @Serial
@@ -49,10 +52,19 @@ public class ApoliceEntity implements Serializable {
     @Column(name = "assistencias")
     private Set<TipoAssistencia> assistencias;
 
+    @Column(name = "data_inicio")
+    private OffsetDateTime dataInicio;
+
+    @Column(name = "data_fim")
+    private OffsetDateTime dataFinalizacao;
+
+    @OneToMany(mappedBy = "apolice", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<HistoricoEntity> historico = new HashSet<>();
+
     public ApoliceEntity() {
     }
 
-    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, Set<TipoCobertura> coberturas, Set<TipoAssistencia> assistencias) {
+    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, Set<TipoCobertura> coberturas, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
         this.id = id;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
@@ -62,6 +74,9 @@ public class ApoliceEntity implements Serializable {
         this.valorSegurado = valorSegurado;
         this.coberturas = coberturas;
         this.assistencias = assistencias;
+        this.dataInicio = dataInicio;
+        this.dataFinalizacao = dataFinalizacao;
+        this.historico = historico;
     }
 
     public UUID getId() {
@@ -134,5 +149,29 @@ public class ApoliceEntity implements Serializable {
 
     public void setAssistencias(Set<TipoAssistencia> assistencias) {
         this.assistencias = assistencias;
+    }
+
+    public OffsetDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(OffsetDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public OffsetDateTime getDataFinalizacao() {
+        return dataFinalizacao;
+    }
+
+    public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
+
+    public Set<HistoricoEntity> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(Set<HistoricoEntity> historico) {
+        this.historico = historico;
     }
 }

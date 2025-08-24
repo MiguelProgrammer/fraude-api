@@ -4,6 +4,7 @@ import com.acme.apolice.core.ports.ApoliceRepositoryPort;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.ApoliceEntity;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.repositories.ApoliceRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class ApoliceRepositoryAdapter implements ApoliceRepositoryPort {
@@ -15,6 +16,7 @@ public class ApoliceRepositoryAdapter implements ApoliceRepositoryPort {
     }
 
     @Override
+    @Transactional
     public ApoliceEntity save(ApoliceEntity apoliceEntity) {
         return apoliceRepository.save(apoliceEntity);
     }

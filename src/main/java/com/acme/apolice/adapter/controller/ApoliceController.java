@@ -4,6 +4,7 @@ import com.acme.apolice.adapter.inbound.ApoliceInMapper;
 import com.acme.apolice.adapter.inbound.dto.Apolice;
 import com.acme.apolice.adapter.inbound.dto.ApoliceResponse;
 import com.acme.apolice.adapter.outbound.ApoliceOutMapperDto;
+import com.acme.apolice.adapter.outbound.reponse.ApoliceResponseDto;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
 import com.acme.apolice.core.usecase.ApoliceUseCase;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,10 @@ public class ApoliceController {
         this.apoliceUseCase = apoliceUseCase;
     }
 
-    public ResponseEntity<ApoliceResponse> geraApolice(Apolice apolice) {
-        ApoliceDomain enquadramento = apoliceUseCase.enquadramento(inMapper.inboundToDomain(apolice));
-        return new ResponseEntity<>(outMapper.domainToOutbound(enquadramento), HttpStatus.CREATED);
+    public ResponseEntity<ApoliceResponseDto> geraApolice(Apolice apolice) {
+        ApoliceDomain apoliceDomain = apoliceUseCase.enquadramento(inMapper.inboundToDomain(apolice));
+        ApoliceResponse apoliceResponse = outMapper.domainToOutbound(apoliceDomain);
+        return new ResponseEntity<>(new ApoliceResponseDto(apoliceResponse.getId(), apoliceDomain.getDataInicio()), HttpStatus.CREATED);
     }
 
     public ResponseEntity<ApoliceResponse> consutaApolice(UUID clienteId, UUID solicitacaoId) {

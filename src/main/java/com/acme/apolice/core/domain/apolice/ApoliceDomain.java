@@ -2,14 +2,15 @@ package com.acme.apolice.core.domain.apolice;
 
 import com.acme.apolice.adapter.inbound.dto.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Transient;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
 public class ApoliceDomain {
 
-    @JsonIgnore
     private UUID id;
     private UUID clienteId;
     private UUID produtoId;
@@ -20,6 +21,9 @@ public class ApoliceDomain {
     private BigDecimal valorSegurado;
     private Set<TipoCobertura> coberturas;
     private Set<TipoAssistencia> assistencias;
+
+    @Transient
+    private OffsetDateTime dataInicio = OffsetDateTime.now();
 
     public ApoliceDomain() {
     }
@@ -115,5 +119,13 @@ public class ApoliceDomain {
 
     public void setAssistencias(Set<TipoAssistencia> assistencias) {
         this.assistencias = assistencias;
+    }
+
+    public OffsetDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(OffsetDateTime dataInicio) {
+        this.dataInicio = dataInicio;
     }
 }

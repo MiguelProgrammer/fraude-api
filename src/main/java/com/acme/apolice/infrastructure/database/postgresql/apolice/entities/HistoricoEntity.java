@@ -1,0 +1,74 @@
+package com.acme.apolice.infrastructure.database.postgresql.apolice.entities;
+
+import com.acme.apolice.adapter.inbound.dto.Estado;
+import jakarta.persistence.*;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+@Entity
+@Table(name = "historico")
+@SequenceGenerator(name = "historico_sequence")
+public class HistoricoEntity implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "apolice_id")
+    private ApoliceEntity apolice;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Estado status;
+
+    @Column(name = "data_ini")
+    private OffsetDateTime timestamp;
+
+    public HistoricoEntity() {
+    }
+
+    public HistoricoEntity(ApoliceEntity apolice, Estado status, OffsetDateTime timestamp) {
+        this.apolice = apolice;
+        this.status = status;
+        this.timestamp = timestamp;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public ApoliceEntity getApolice() {
+        return apolice;
+    }
+
+    public void setApolice(ApoliceEntity apolice) {
+        this.apolice = apolice;
+    }
+
+    public Estado getStatus() {
+        return status;
+    }
+
+    public void setStatus(Estado status) {
+        this.status = status;
+    }
+
+    public OffsetDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(OffsetDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+}
