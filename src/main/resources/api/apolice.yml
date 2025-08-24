@@ -53,11 +53,13 @@ paths:
         - in: query
           name: clienteId
           schema:
-            type: integer
+            type: string
+            format: uuid
         - in: query
           name: solicitacaoId
           schema:
-            type: integer
+            type: string
+            format: uuid
       responses:
         '200':
           description: Apólice encontrada
@@ -78,9 +80,11 @@ components:
       type: object
       properties:
         clienteId:
-          type: integer
+          type: string
+          format: uuid
         produtoId:
-          type: integer
+          type: string
+          format: uuid
         categoria:
           $ref: "#/components/schemas/CategoriaSeguro"
         metodoPagemento:
@@ -104,11 +108,15 @@ components:
       type: object
       properties:
         clienteId:
-          type: integer
+          type: string
+          format: uuid
         produtoId:
-          type: integer
+          type: string
+          format: uuid
         categoria:
           $ref: "#/components/schemas/CategoriaSeguro"
+        origem:
+          $ref: "#/components/schemas/TipoCanalVendas"
         metodoPagemento:
           $ref: "#/components/schemas/TipoPagamento"
         valorTotalPremioMensal:
@@ -130,11 +138,14 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
         clienteId:
-          type: integer
+          type: string
+          format: uuid
         produtoId:
-          type: integer
+          type: string
+          format: uuid
         categoria:
           $ref: "#/components/schemas/CategoriaSeguro"
         metodoPagemento:
