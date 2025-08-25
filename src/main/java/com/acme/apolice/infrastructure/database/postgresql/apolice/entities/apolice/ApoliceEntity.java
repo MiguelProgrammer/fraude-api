@@ -1,9 +1,10 @@
-package com.acme.apolice.infrastructure.database.postgresql.apolice.entities;
+package com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice;
 
-import com.acme.apolice.adapter.inbound.dto.CategoriaSeguro;
-import com.acme.apolice.adapter.inbound.dto.TipoAssistencia;
-import com.acme.apolice.adapter.inbound.dto.TipoCobertura;
-import com.acme.apolice.adapter.inbound.dto.TipoPagamento;
+import com.acme.apolice.adapter.inbound.CategoriaSeguro;
+import com.acme.apolice.adapter.inbound.TipoAssistencia;
+import com.acme.apolice.adapter.inbound.TipoPagamento;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.cobertura.CoberturaEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.historico.HistoricoEntity;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -46,8 +47,8 @@ public class ApoliceEntity implements Serializable {
     @Column(name = "valor_segurado")
     private BigDecimal valorSegurado;
 
-    @Column(name = "coberturas")
-    private Set<TipoCobertura> coberturas;
+    @Column(name = "cobertura")
+    private CoberturaEntity cobertura;
 
     @Column(name = "assistencias")
     private Set<TipoAssistencia> assistencias;
@@ -64,7 +65,7 @@ public class ApoliceEntity implements Serializable {
     public ApoliceEntity() {
     }
 
-    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, Set<TipoCobertura> coberturas, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
+    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaEntity cobertura, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
         this.id = id;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
@@ -72,7 +73,7 @@ public class ApoliceEntity implements Serializable {
         this.metodoPagemento = metodoPagemento;
         this.valorTotalPremioMensal = valorTotalPremioMensal;
         this.valorSegurado = valorSegurado;
-        this.coberturas = coberturas;
+        this.cobertura = cobertura;
         this.assistencias = assistencias;
         this.dataInicio = dataInicio;
         this.dataFinalizacao = dataFinalizacao;
@@ -135,12 +136,12 @@ public class ApoliceEntity implements Serializable {
         this.valorSegurado = valorSegurado;
     }
 
-    public Set<TipoCobertura> getCoberturas() {
-        return coberturas;
+    public CoberturaEntity getCobertura() {
+        return cobertura;
     }
 
-    public void setCoberturas(Set<TipoCobertura> coberturas) {
-        this.coberturas = coberturas;
+    public void setCobertura(CoberturaEntity cobertura) {
+        this.cobertura = cobertura;
     }
 
     public Set<TipoAssistencia> getAssistencias() {

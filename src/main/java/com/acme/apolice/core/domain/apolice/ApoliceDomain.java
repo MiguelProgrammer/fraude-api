@@ -1,7 +1,10 @@
 package com.acme.apolice.core.domain.apolice;
 
-import com.acme.apolice.adapter.inbound.dto.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.acme.apolice.adapter.inbound.CategoriaSeguro;
+import com.acme.apolice.adapter.inbound.TipoAssistencia;
+import com.acme.apolice.adapter.inbound.TipoCanalVendas;
+import com.acme.apolice.adapter.inbound.TipoPagamento;
+import com.acme.apolice.core.domain.cobertura.CoberturaDomain;
 import jakarta.persistence.Transient;
 
 import java.math.BigDecimal;
@@ -19,7 +22,7 @@ public class ApoliceDomain {
     private TipoPagamento metodoPagemento;
     private BigDecimal valorTotalPremioMensal;
     private BigDecimal valorSegurado;
-    private Set<TipoCobertura> coberturas;
+    private CoberturaDomain cobertura;
     private Set<TipoAssistencia> assistencias;
 
     @Transient
@@ -28,7 +31,7 @@ public class ApoliceDomain {
     public ApoliceDomain() {
     }
 
-    public ApoliceDomain(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoCanalVendas origem, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, Set<TipoCobertura> coberturas, Set<TipoAssistencia> assistencias) {
+    public ApoliceDomain(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoCanalVendas origem, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaDomain cobertura, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio) {
         this.id = id;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
@@ -37,8 +40,9 @@ public class ApoliceDomain {
         this.metodoPagemento = metodoPagemento;
         this.valorTotalPremioMensal = valorTotalPremioMensal;
         this.valorSegurado = valorSegurado;
-        this.coberturas = coberturas;
+        this.cobertura = cobertura;
         this.assistencias = assistencias;
+        this.dataInicio = dataInicio;
     }
 
     public UUID getId() {
@@ -105,12 +109,12 @@ public class ApoliceDomain {
         this.valorSegurado = valorSegurado;
     }
 
-    public Set<TipoCobertura> getCoberturas() {
-        return coberturas;
+    public CoberturaDomain getCobertura() {
+        return cobertura;
     }
 
-    public void setCoberturas(Set<TipoCobertura> coberturas) {
-        this.coberturas = coberturas;
+    public void setCobertura(CoberturaDomain cobertura) {
+        this.cobertura = cobertura;
     }
 
     public Set<TipoAssistencia> getAssistencias() {

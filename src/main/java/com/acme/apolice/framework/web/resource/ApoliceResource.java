@@ -1,8 +1,8 @@
 package com.acme.apolice.framework.web.resource;
 
 import com.acme.apolice.adapter.controller.ApoliceController;
-import com.acme.apolice.adapter.inbound.dto.Apolice;
-import com.acme.apolice.adapter.inbound.dto.ApoliceResponse;
+import com.acme.apolice.adapter.inbound.Apolice;
+import com.acme.apolice.adapter.inbound.ApoliceResponse;
 import com.acme.apolice.adapter.outbound.reponse.ApoliceResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

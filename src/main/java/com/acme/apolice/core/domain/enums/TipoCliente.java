@@ -1,6 +1,6 @@
 package com.acme.apolice.core.domain.enums;
 
-import com.acme.apolice.adapter.inbound.dto.CategoriaSeguro;
+import com.acme.apolice.adapter.inbound.CategoriaSeguro;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

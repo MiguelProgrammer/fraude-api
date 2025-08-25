@@ -1,6 +1,7 @@
-package com.acme.apolice.infrastructure.database.postgresql.apolice.entities;
+package com.acme.apolice.infrastructure.database.postgresql.apolice.entities.historico;
 
-import com.acme.apolice.adapter.inbound.dto.Estado;
+import com.acme.apolice.adapter.inbound.Estado;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
 import jakarta.persistence.*;
 
 import java.io.Serial;

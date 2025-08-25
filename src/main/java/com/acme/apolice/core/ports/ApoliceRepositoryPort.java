@@ -1,6 +1,6 @@
 package com.acme.apolice.core.ports;
 
-import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.ApoliceEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
 
 public interface ApoliceRepositoryPort {
 

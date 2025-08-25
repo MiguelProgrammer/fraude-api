@@ -1,11 +1,12 @@
 package com.acme.apolice.core.domain.historico;
 
-import com.acme.apolice.adapter.inbound.dto.Estado;
+import com.acme.apolice.adapter.inbound.Estado;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 

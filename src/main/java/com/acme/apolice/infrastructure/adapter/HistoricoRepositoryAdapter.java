@@ -1,7 +1,7 @@
 package com.acme.apolice.infrastructure.adapter;
 
 import com.acme.apolice.core.ports.HistoricoRepositoryPort;
-import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.HistoricoEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.historico.HistoricoEntity;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.repositories.HistoricoRepository;
 import org.springframework.stereotype.Component;
 

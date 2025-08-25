@@ -1,6 +1,6 @@
 package com.acme.apolice.infrastructure.database.postgresql.apolice.repositories;
 
-import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.ApoliceEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

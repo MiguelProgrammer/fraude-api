@@ -1,33 +1,73 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# =============================
+# Maven / Gradle
+# =============================
+/target/
+!*/src/main/resources/
+/build/
+/out/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
+# Dependências baixadas automaticamente
+/.mvn/
+**/node_modules/
+
+# =============================
+# Eclipse
+# =============================
+.metadata/
+*.tmp
+*.bak
+*.swp
+*.class
+*.launch
+.settings/
 .project
-.settings
-.springBeans
-.sts4-cache
+/.classpath
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# =============================
+# IntelliJ IDEA
+# =============================
+.idea/
 *.iml
+*.iws
 *.ipr
+/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+# =============================
+# VS Code
+# =============================
 .vscode/
+
+# =============================
+# Logs e arquivos temporários
+# =============================
+*.log
+*.tmp
+*.temp
+*.swp
+*.DS_Store
+hs_err_pid*
+
+# =============================
+# OS specific
+# =============================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# =============================
+# Spring Boot / JVM
+# =============================
+spring-boot-devtools.properties
+spring-boot-devtools.jar
+*.jar
+*.war
+*.ear

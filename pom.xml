@@ -156,7 +156,7 @@
                                 ${project.basedir}/src/main/resources/api/apolice.yml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <modelPackage>com.acme.apolice.adapter.inbound.dto</modelPackage>
+                            <modelPackage>com.acme.apolice.adapter.inbound</modelPackage>
                             <apiPackage>com.acme.apolice.controller</apiPackage>
                             <configOptions>
                                 <sourceFolder>src/main/java/</sourceFolder>
@@ -196,6 +196,20 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.5.5</version> <!-- ajuste p/ versão do seu projeto -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>

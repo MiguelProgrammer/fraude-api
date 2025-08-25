@@ -1,7 +1,7 @@
 package com.acme.apolice.infrastructure.adapter;
 
 import com.acme.apolice.core.ports.ApoliceRepositoryPort;
-import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.ApoliceEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.repositories.ApoliceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

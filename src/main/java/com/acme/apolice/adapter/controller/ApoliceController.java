@@ -1,8 +1,8 @@
 package com.acme.apolice.adapter.controller;
 
 import com.acme.apolice.adapter.inbound.ApoliceInMapper;
-import com.acme.apolice.adapter.inbound.dto.Apolice;
-import com.acme.apolice.adapter.inbound.dto.ApoliceResponse;
+import com.acme.apolice.adapter.inbound.Apolice;
+import com.acme.apolice.adapter.inbound.ApoliceResponse;
 import com.acme.apolice.adapter.outbound.ApoliceOutMapperDto;
 import com.acme.apolice.adapter.outbound.reponse.ApoliceResponseDto;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
