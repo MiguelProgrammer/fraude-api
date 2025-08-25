@@ -1,22 +1,19 @@
 package com.acme.apolice.infrastructure.adapter.outbound;
 
-import com.acme.apolice.adapter.inbound.ApoliceConsulta;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
+import com.acme.apolice.core.domain.cobertura.CoberturaDomain;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.cobertura.CoberturaEntity;
 import org.mapstruct.Mapper;
 
-import java.util.Set;
-
 @Mapper(componentModel = "spring")
-public interface ApoliceOutMapperInfra {
+public interface CoberturaOutMapperInfra {
 
     /**
      * Domain to Infra<br>
      * Infra to Domain
      */
-    ApoliceEntity domainToEntity(ApoliceDomain apoliceDomain);
+    CoberturaEntity domainToEntity(CoberturaDomain domain);
+    CoberturaDomain entityToDomain(CoberturaEntity entity);
 
-    ApoliceDomain entityToDomain(ApoliceEntity dto);
-
-    Set<ApoliceConsulta> listEntityToListDomain(Set<ApoliceEntity> apoliceEntities);
 }

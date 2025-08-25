@@ -1,29 +1,45 @@
 openapi: 3.0.1
 info:
-  title: Swagger Api Acme - Emissão de Apólices - OpenAPI 3.0
+  title: ACME - API de Emissão e Consulta de Apólices
   description: |-
-    Itau Challenge Project
+    # Itau Challenge Project  
+
+    Esta API permite **emitir** e **consultar apólices de seguros**.  
+    Foi desenvolvida seguindo o conceito **API-First**, garantindo que o contrato
+    esteja definido antes da implementação.
+
+    ---
+    ## Desenvolvedores
+    - Miguel Pereira da Silva (miguel.silva@mackenzista.com.br)
+    - Equipe ACME - Squad de Seguros Digitais
+  version: 1.0.12
   termsOfService: http://swagger.io/terms/
   contact:
+    name: Equipe de Desenvolvimento ACME
     email: miguel.silva@mackenzista.com.br
+    url: https://github.com/miguelsilva
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.12
+  x-logo:
+    url: https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png
+    backgroundColor: "#FFFFFF"
+    altText: "Logo ACME"
+
 tags:
   - name: apolice
     description: "Cria, atualiza uma apólice"
-
   - name: apolice-consulta
     description: "Consulta uma apólice"
+  - name: apolice-consulta-cliente
+    description: "Consulta uma apólice por cliente"
 
 paths:
-
-  /v1/apolice/emite:
+  /v1/apolice:
     post:
       tags:
         - apolice
-      summary: cria uma apólice
+      summary: Cria uma apólice
       description: Cria uma apólice a partir de atributos
       operationId: geraApolice
       requestBody:
@@ -42,35 +58,63 @@ paths:
         '400':
           description: Não foi possível criar apólice
 
-  /v1/apolice/consulta:
+  /v1/apolice/{id}:
     get:
       tags:
         - apolice-consulta
-      summary: Consulta uma apólice
-      description: Retorna uma apólice
-      operationId: consutaApolice
+      summary: Consulta apólice por Id apólice ou Id client
+      description: Retorna uma ou mais apólices
+      operationId: listaApolice
       parameters:
-        - in: query
-          name: clienteId
+        - in: path
+          name: id
+          required: true
           schema:
             type: string
             format: uuid
-        - in: query
-          name: solicitacaoId
-          schema:
-            type: string
-            format: uuid
+            example: "Id apolice 3fa85f64-5717-4562-b3fc-2c963f66afa6"
       responses:
         '200':
-          description: Apólice encontrada
+          description: Apólices encontrada
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApoliceResponse"
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApoliceConsulta"
         '400':
-          description: Não foi possível localizar apólice
-        '404':
           description: Erro tentar localizar apólice
+        '404':
+          description: Não foi possível localizar apólice
+
+  /v1/clientes/{idCliente}/apolice:
+    get:
+      tags:
+        - apolice-consulta-cliente
+      summary: Lista de apólices por Id cliente
+      description: Retorna uma ou mais apólices
+      operationId: listaApolicePorCliente
+      parameters:
+        - in: path
+          name: idCliente
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "Id apolice 3fa85f64-5717-4562-b3fc-2c963f66afa6"
+      responses:
+        '200':
+          description: Apólices encontrada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApoliceConsulta"
+        '400':
+          description: Erro tentar localizar apólice
+        '404':
+          description: Não foi possível localizar apólice
 
 
 components:
@@ -79,28 +123,54 @@ components:
     ApoliceConsulta:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          example: "9fa85f64-5717-4562-b3fc-2c963f66afa6"
         clienteId:
           type: string
           format: uuid
+          example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         produtoId:
           type: string
           format: uuid
+          example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         categoria:
           $ref: "#/components/schemas/CategoriaSeguro"
         metodoPagemento:
           $ref: "#/components/schemas/TipoPagamento"
+        status:
+          $ref: "#/components/schemas/Estado"
+        dataInicio:
+          type: string
+          format: date-time
+          example: "2025-08-25T10:30:00-03:00"
+        dataFinalizacao:
+          type: string
+          format: date-time
+          example: "2025-08-25T10:30:00-03:00"
         valorTotalPremioMensal:
           type: number
           format: double
+          example: 200.00
         valorSegurado:
           type: number
           format: double
+          example: 100000.00
         cobertura:
-            $ref: "#/components/schemas/Cobertura"
+          $ref: "#/components/schemas/Cobertura"
         assistencias:
           type: array
           items:
-            $ref: "#/components/schemas/TipoAssistencia"
+            type: string
+          example:
+            - "Guincho até 250km"
+            - "Troca de Óleo"
+            - "Chaveiro 24h"
+        historico:
+          type: array
+          items:
+            $ref: "#/components/schemas/Historico"
 
     Apolice:
       type: object
@@ -108,9 +178,11 @@ components:
         clienteId:
           type: string
           format: uuid
+          example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         produtoId:
           type: string
           format: uuid
+          example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
         categoria:
           $ref: "#/components/schemas/CategoriaSeguro"
         origem:
@@ -120,15 +192,21 @@ components:
         valorTotalPremioMensal:
           type: number
           format: double
+          example: 150.00
         valorSegurado:
           type: number
           format: double
+          example: 100000.00
         cobertura:
           $ref: "#/components/schemas/Cobertura"
         assistencias:
           type: array
           items:
-            $ref: "#/components/schemas/TipoAssistencia"
+            type: string
+          example:
+            - "Guincho até 250km"
+            - "Troca de Óleo"
+            - "Chaveiro 24h"
 
     ApoliceResponse:
       type: object
@@ -136,40 +214,11 @@ components:
         id:
           type: string
           format: uuid
-        clienteId:
-          type: string
-          format: uuid
-        produtoId:
-          type: string
-          format: uuid
-        categoria:
-          $ref: "#/components/schemas/CategoriaSeguro"
-        metodoPagemento:
-          $ref: "#/components/schemas/TipoPagamento"
-        status:
-          $ref: "#/components/schemas/Estado"
+          example: "9fa85f64-5717-4562-b3fc-2c963f66afa6"
         dataInicio:
           type: string
-          format: date
-        dataFinalizacao:
-          type: string
-          format: date
-        valorTotalPremioMensal:
-          type: number
-          format: double
-        valorSegurado:
-          type: number
-          format: double
-        cobertura:
-            $ref: "#/components/schemas/Cobertura"
-        assistencias:
-          type: array
-          items:
-            $ref: "#/components/schemas/TipoAssistencia"
-        historico:
-          type: array
-          items:
-            $ref: "#/components/schemas/Historico"
+          format: date-time
+          example: "2025-08-25T10:30:00-03:00"
 
     Cobertura:
       type: object
@@ -177,19 +226,15 @@ components:
         roubo:
           type: number
           format: double
+          example: 100000.25
         perdaTotal:
           type: number
           format: double
+          example: 100000.25
         colisaoTerceiros:
           type: number
           format: double
-
-    TipoAssistencia:
-      type: string
-      enum:
-        - GUINCHO
-        - TROCA_DE_OLEO
-        - CHAVEIRO
+          example: 75000.00
 
     TipoCanalVendas:
       type: string
@@ -197,6 +242,7 @@ components:
         - MOBILE
         - WHATSAPP
         - WEB_SITE
+      example: MOBILE
 
     TipoPagamento:
       type: string
@@ -205,6 +251,7 @@ components:
         - DEBITO_EM_CONTA
         - BOLETO
         - PIX
+      example: CARTAO_CREDITO
 
     CategoriaSeguro:
       type: string
@@ -213,6 +260,7 @@ components:
         - AUTO
         - RESIDENCIAL
         - EMPRESARIAL
+      example: AUTO
 
     Estado:
       type: string
@@ -223,6 +271,7 @@ components:
         - REJEITADO
         - APROVADO
         - CANCELADA
+      example: RECEBIDO
 
     Historico:
       type: object
@@ -231,4 +280,5 @@ components:
           $ref: '#/components/schemas/Estado'
         data:
           type: string
-          format: date
+          format: date-time
+          example: "2025-08-25T10:30:00-03:00"

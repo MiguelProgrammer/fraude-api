@@ -6,6 +6,9 @@ import com.acme.apolice.infrastructure.database.postgresql.apolice.repositories.
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+import java.util.UUID;
+
 @Component
 public class ApoliceRepositoryAdapter implements ApoliceRepositoryPort {
 
@@ -20,4 +23,10 @@ public class ApoliceRepositoryAdapter implements ApoliceRepositoryPort {
     public ApoliceEntity save(ApoliceEntity apoliceEntity) {
         return apoliceRepository.save(apoliceEntity);
     }
+
+    @Override
+    public Set<ApoliceEntity> listaApolice(UUID id) {
+        return apoliceRepository.findByApolice(id);
+    }
+
 }

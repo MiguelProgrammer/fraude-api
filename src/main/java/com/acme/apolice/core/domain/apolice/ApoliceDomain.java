@@ -1,11 +1,9 @@
 package com.acme.apolice.core.domain.apolice;
 
 import com.acme.apolice.adapter.inbound.CategoriaSeguro;
-import com.acme.apolice.adapter.inbound.TipoAssistencia;
 import com.acme.apolice.adapter.inbound.TipoCanalVendas;
 import com.acme.apolice.adapter.inbound.TipoPagamento;
 import com.acme.apolice.core.domain.cobertura.CoberturaDomain;
-import jakarta.persistence.Transient;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -23,15 +21,13 @@ public class ApoliceDomain {
     private BigDecimal valorTotalPremioMensal;
     private BigDecimal valorSegurado;
     private CoberturaDomain cobertura;
-    private Set<TipoAssistencia> assistencias;
-
-    @Transient
-    private OffsetDateTime dataInicio = OffsetDateTime.now();
+    private Set<String> assistencias;
+    private OffsetDateTime dataCriacao = OffsetDateTime.now();
 
     public ApoliceDomain() {
     }
 
-    public ApoliceDomain(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoCanalVendas origem, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaDomain cobertura, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio) {
+    public ApoliceDomain(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoCanalVendas origem, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaDomain cobertura, Set<String> assistencias, OffsetDateTime dataCriacao) {
         this.id = id;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
@@ -42,7 +38,7 @@ public class ApoliceDomain {
         this.valorSegurado = valorSegurado;
         this.cobertura = cobertura;
         this.assistencias = assistencias;
-        this.dataInicio = dataInicio;
+        this.dataCriacao = dataCriacao;
     }
 
     public UUID getId() {
@@ -117,19 +113,19 @@ public class ApoliceDomain {
         this.cobertura = cobertura;
     }
 
-    public Set<TipoAssistencia> getAssistencias() {
+    public Set<String> getAssistencias() {
         return assistencias;
     }
 
-    public void setAssistencias(Set<TipoAssistencia> assistencias) {
+    public void setAssistencias(Set<String> assistencias) {
         this.assistencias = assistencias;
     }
 
-    public OffsetDateTime getDataInicio() {
-        return dataInicio;
+    public OffsetDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setDataInicio(OffsetDateTime dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setDataCriacao(OffsetDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }

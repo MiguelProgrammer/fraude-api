@@ -2,12 +2,12 @@ package com.acme.apolice.infrastructure.config;
 
 import com.acme.apolice.adapter.controller.ApoliceController;
 import com.acme.apolice.adapter.inbound.ApoliceInMapper;
+import com.acme.apolice.adapter.inbound.CoberturaInMapper;
 import com.acme.apolice.adapter.outbound.ApoliceOutMapperDto;
 import com.acme.apolice.core.ports.ApoliceRepositoryPort;
-import com.acme.apolice.core.ports.HistoricoRepositoryPort;
 import com.acme.apolice.core.usecase.ApoliceUseCase;
 import com.acme.apolice.infrastructure.adapter.outbound.ApoliceOutMapperInfra;
-import com.acme.apolice.infrastructure.adapter.outbound.HistoricoOutMapperInfra;
+import com.acme.apolice.infrastructure.adapter.outbound.CoberturaOutMapperInfra;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Configuration;
 public class ConfigBeans {
 
     @Bean
-    public ApoliceController apoliceController(ApoliceInMapper inMapper, ApoliceOutMapperDto outMapper, ApoliceUseCase apoliceUseCase) {
-        return new ApoliceController(inMapper, outMapper, apoliceUseCase);
+    public ApoliceController apoliceController(ApoliceInMapper inMapper, ApoliceOutMapperDto outMapper, CoberturaInMapper coberturaInMapper, ApoliceUseCase apoliceUseCase) {
+        return new ApoliceController(inMapper, outMapper, coberturaInMapper, apoliceUseCase);
     }
 
     @Bean
-    public ApoliceUseCase apoliceUseCase(ApoliceOutMapperInfra inMapper, ApoliceRepositoryPort apoliceAdapter, HistoricoOutMapperInfra historicoMapper, HistoricoRepositoryPort historicoRepositoryPort) {
-        return new ApoliceUseCase(inMapper, apoliceAdapter, historicoMapper, historicoRepositoryPort);
+    public ApoliceUseCase apoliceUseCase(ApoliceOutMapperInfra inMapper, CoberturaOutMapperInfra coberturaOutMapperInfra, ApoliceRepositoryPort apoliceAdapter) {
+        return new ApoliceUseCase(inMapper, apoliceAdapter, coberturaOutMapperInfra);
     }
 }

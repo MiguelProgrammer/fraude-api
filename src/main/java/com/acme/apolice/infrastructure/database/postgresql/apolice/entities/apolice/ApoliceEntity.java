@@ -1,7 +1,6 @@
 package com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice;
 
 import com.acme.apolice.adapter.inbound.CategoriaSeguro;
-import com.acme.apolice.adapter.inbound.TipoAssistencia;
 import com.acme.apolice.adapter.inbound.TipoPagamento;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.cobertura.CoberturaEntity;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.historico.HistoricoEntity;
@@ -27,10 +26,10 @@ public class ApoliceEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "cliente_id")
+    @Column(name = "cliente")
     private UUID clienteId;
 
-    @Column(name = "produto_id")
+    @Column(name = "produto")
     private UUID produtoId;
 
     @Column(name = "categoria")
@@ -47,14 +46,15 @@ public class ApoliceEntity implements Serializable {
     @Column(name = "valor_segurado")
     private BigDecimal valorSegurado;
 
-    @Column(name = "cobertura")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cobertura")
     private CoberturaEntity cobertura;
 
-    @Column(name = "assistencias")
-    private Set<TipoAssistencia> assistencias;
+    @Column(name = "assistencia")
+    private Set<String> assistencias;
 
-    @Column(name = "data_inicio")
-    private OffsetDateTime dataInicio;
+    @Column(name = "data_criacao")
+    private OffsetDateTime dataCriacao;
 
     @Column(name = "data_fim")
     private OffsetDateTime dataFinalizacao;
@@ -65,7 +65,7 @@ public class ApoliceEntity implements Serializable {
     public ApoliceEntity() {
     }
 
-    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaEntity cobertura, Set<TipoAssistencia> assistencias, OffsetDateTime dataInicio, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
+    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaEntity cobertura, Set<String> assistencias, OffsetDateTime dataCriacao, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
         this.id = id;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
@@ -75,7 +75,7 @@ public class ApoliceEntity implements Serializable {
         this.valorSegurado = valorSegurado;
         this.cobertura = cobertura;
         this.assistencias = assistencias;
-        this.dataInicio = dataInicio;
+        this.dataCriacao = dataCriacao;
         this.dataFinalizacao = dataFinalizacao;
         this.historico = historico;
     }
@@ -144,20 +144,20 @@ public class ApoliceEntity implements Serializable {
         this.cobertura = cobertura;
     }
 
-    public Set<TipoAssistencia> getAssistencias() {
+    public Set<String> getAssistencias() {
         return assistencias;
     }
 
-    public void setAssistencias(Set<TipoAssistencia> assistencias) {
+    public void setAssistencias(Set<String> assistencias) {
         this.assistencias = assistencias;
     }
 
-    public OffsetDateTime getDataInicio() {
-        return dataInicio;
+    public OffsetDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setDataInicio(OffsetDateTime dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setDataCriacao(OffsetDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public OffsetDateTime getDataFinalizacao() {
