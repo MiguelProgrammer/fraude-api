@@ -1,11 +1,8 @@
 package com.acme.apolice.infrastructure.adapter.outbound;
 
-import com.acme.apolice.adapter.inbound.ApoliceConsulta;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
 import org.mapstruct.Mapper;
-
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ApoliceOutMapperInfra {
@@ -17,6 +14,4 @@ public interface ApoliceOutMapperInfra {
     ApoliceEntity domainToEntity(ApoliceDomain apoliceDomain);
 
     ApoliceDomain entityToDomain(ApoliceEntity dto);
-
-    Set<ApoliceConsulta> listEntityToListDomain(Set<ApoliceEntity> apoliceEntities);
 }

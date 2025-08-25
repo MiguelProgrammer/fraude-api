@@ -13,6 +13,7 @@ public interface HistoricoOutMapperInfra {
      * Infra to Domain
      */
     HistoricoEntity domainToEntity(ApoliceDomain apoliceDomain);
+
     ApoliceDomain entityToDomain(ApoliceEntity dto);
 
 }

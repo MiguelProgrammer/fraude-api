@@ -141,7 +141,7 @@ components:
           $ref: "#/components/schemas/TipoPagamento"
         status:
           $ref: "#/components/schemas/Estado"
-        dataInicio:
+        dataCriacao:
           type: string
           format: date-time
           example: "2025-08-25T10:30:00-03:00"
@@ -215,7 +215,7 @@ components:
           type: string
           format: uuid
           example: "9fa85f64-5717-4562-b3fc-2c963f66afa6"
-        dataInicio:
+        dataCriacao:
           type: string
           format: date-time
           example: "2025-08-25T10:30:00-03:00"
@@ -278,7 +278,7 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/Estado'
-        data:
+        dataCriacao:
           type: string
           format: date-time
           example: "2025-08-25T10:30:00-03:00"

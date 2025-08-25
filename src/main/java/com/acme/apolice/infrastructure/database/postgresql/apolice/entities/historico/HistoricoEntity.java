@@ -30,15 +30,15 @@ public class HistoricoEntity implements Serializable {
     private Estado status;
 
     @Column(name = "data_ini")
-    private OffsetDateTime timestamp;
+    private OffsetDateTime dataCriacao;
 
     public HistoricoEntity() {
     }
 
-    public HistoricoEntity(ApoliceEntity apolice, Estado status, OffsetDateTime timestamp) {
+    public HistoricoEntity(ApoliceEntity apolice, Estado status, OffsetDateTime dataCriacao) {
         this.apolice = apolice;
         this.status = status;
-        this.timestamp = timestamp;
+        this.dataCriacao = dataCriacao;
     }
 
     public UUID getId() {
@@ -65,11 +65,11 @@ public class HistoricoEntity implements Serializable {
         this.status = status;
     }
 
-    public OffsetDateTime getTimestamp() {
-        return timestamp;
+    public OffsetDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setTimestamp(OffsetDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setDataCriacao(OffsetDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }

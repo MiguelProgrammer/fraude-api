@@ -16,13 +16,11 @@ public class ApoliceController {
 
     private final ApoliceInMapper inMapper;
     private final ApoliceOutMapperDto outMapper;
-    private final CoberturaInMapper coberturaInMapper;
     private final ApoliceUseCase apoliceUseCase;
 
-    public ApoliceController(ApoliceInMapper inMapper, ApoliceOutMapperDto outMapper, CoberturaInMapper coberturaInMapper, ApoliceUseCase apoliceUseCase) {
+    public ApoliceController(ApoliceInMapper inMapper, ApoliceOutMapperDto outMapper, ApoliceUseCase apoliceUseCase) {
         this.inMapper = inMapper;
         this.outMapper = outMapper;
-        this.coberturaInMapper = coberturaInMapper;
         this.apoliceUseCase = apoliceUseCase;
     }
 

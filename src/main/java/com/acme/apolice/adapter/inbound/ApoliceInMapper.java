@@ -12,7 +12,8 @@ public interface ApoliceInMapper {
      * Domain to Inbound
      */
     ApoliceDomain inboundToDomain(Apolice dto);
-    Apolice domainToInbound(ApoliceDomain apoliceDomain);
-    void updateDomainFromInbound(Apolice dto, @MappingTarget ApoliceDomain domain);
 
+    Apolice domainToInbound(ApoliceDomain apoliceDomain);
+
+    void updateDomainFromInbound(Apolice dto, @MappingTarget ApoliceDomain domain);
 }

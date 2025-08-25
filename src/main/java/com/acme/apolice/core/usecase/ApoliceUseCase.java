@@ -33,7 +33,14 @@ public class ApoliceUseCase {
     }
 
     public Set<ApoliceConsulta> apoliceDetalhada(UUID id) {
-        return inMapper.listEntityToListDomain(apoliceAdapter.listaApolice(id));
+        Set<ApoliceEntity> apoliceEntities = apoliceAdapter.listaApolice(id);
+        Set<ApoliceConsulta> apoliceConsultas = new HashSet<>();
+                apoliceEntities.forEach(ap -> {
+                    ap.getHistorico().forEach(ht -> {
+                        ht.setDataCriacao(ap.getDataCriacao());
+                    });
+        });
+        return apoliceConsultas;
     }
 
     /**
