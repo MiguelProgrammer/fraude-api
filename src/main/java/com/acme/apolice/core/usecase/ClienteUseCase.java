@@ -7,7 +7,6 @@ import com.acme.apolice.infrastructure.adapter.outbound.ApoliceOutMapperInfra;
 import com.acme.apolice.infrastructure.adapter.outbound.CoberturaOutMapperInfra;
 import com.acme.apolice.infrastructure.adapter.outbound.HistoricoOutMapperInfra;
 
-import java.util.Set;
 import java.util.UUID;
 
 public class ClienteUseCase {
@@ -20,7 +19,7 @@ public class ClienteUseCase {
         this.mapperApolice = new ApoliceMapperImpl(inMapper, coberturaOutMapperInfra, historicoOutMapperInfra);
     }
 
-    public Set<ApoliceConsulta> listaApolicePorCliente(UUID idCliente) {
+    public ApoliceConsulta listaApolicePorCliente(UUID idCliente) {
         return mapperApolice.mapperProjection(apoliceAdapter.listaApolice(idCliente));
     }
 }

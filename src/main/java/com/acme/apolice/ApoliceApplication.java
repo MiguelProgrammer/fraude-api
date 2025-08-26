@@ -15,7 +15,7 @@ public class ApoliceApplication {
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		SpringApplication.run(ApoliceApplication.class, args);
         Properties config = new Properties();
-        config.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9093"); // listener externo
 
         try (AdminClient client = AdminClient.create(config)) {
             ListTopicsResult topics = client.listTopics();

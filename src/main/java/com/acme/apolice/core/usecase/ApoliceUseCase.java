@@ -8,6 +8,7 @@ import com.acme.apolice.infrastructure.adapter.outbound.ApoliceOutMapperInfra;
 import com.acme.apolice.infrastructure.adapter.outbound.CoberturaOutMapperInfra;
 import com.acme.apolice.infrastructure.adapter.outbound.HistoricoOutMapperInfra;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.apolice.ApoliceEntity;
+import com.acme.apolice.infrastructure.database.postgresql.apolice.projection.ApoliceConsultaProjection;
 
 import java.util.Set;
 import java.util.UUID;
@@ -28,13 +29,23 @@ public class ApoliceUseCase {
 
     public ApoliceDomain enquadramento(ApoliceDomain domain) {
         ApoliceEntity entity = mapperApolice.mapperApolice(domain);
-        ApoliceEntity save = apoliceAdapter.save(entity);
-        ApoliceDomain apoliceDomain = inMapper.entityToDomain(save);
+
+        /**
+         * CENÁRIO 1
+         */
+        ApoliceDomain apoliceDomain = inMapper.entityToDomain(apoliceAdapter.save(entity));
+
+        /**
+         * CENÁRIO 2
+         */
         apoliceUseCase.executar(apoliceDomain);
+
         return apoliceDomain;
     }
 
-    public Set<ApoliceConsulta> apoliceDetalhada(UUID id) {
-        return mapperApolice.mapperProjection(apoliceAdapter.listaApolice(id));
+    public ApoliceConsulta apoliceDetalhada(UUID id) {
+        ApoliceConsultaProjection apoliceConsultaProjection = apoliceAdapter.listaApolice(id);
+        ApoliceConsulta apoliceConsulta = mapperApolice.mapperProjection(apoliceConsultaProjection);
+        return apoliceConsulta;
     }
 }

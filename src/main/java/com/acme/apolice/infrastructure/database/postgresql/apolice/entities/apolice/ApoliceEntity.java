@@ -44,10 +44,10 @@ public class ApoliceEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoPagamento metodoPagemento;
 
-    @Column(name = "valor_total_premio_mensal")
+    @Column(name = "valor_total_premio_mensal", precision = 12, scale = 2)
     private BigDecimal valorTotalPremioMensal;
 
-    @Column(name = "valor_segurado")
+    @Column(name = "valor_segurado", precision = 12, scale = 2)
     private BigDecimal valorSegurado;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

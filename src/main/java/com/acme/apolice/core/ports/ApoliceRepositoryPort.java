@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface ApoliceRepositoryPort {
 
     ApoliceEntity save(ApoliceEntity apoliceEntity);
-    Set<ApoliceConsultaProjection> listaApolice(UUID id);
+    ApoliceConsultaProjection listaApolice(UUID id);
 }

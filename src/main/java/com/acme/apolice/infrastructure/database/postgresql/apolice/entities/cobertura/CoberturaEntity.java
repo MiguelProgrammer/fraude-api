@@ -19,13 +19,13 @@ public class CoberturaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "roubo")
+    @Column(name = "roubo", precision = 12, scale = 2)
     private BigDecimal roubo;
 
-    @Column(name = "perda_total")
+    @Column(name = "perda_total", precision = 12, scale = 2)
     private BigDecimal perdaTotal;
 
-    @Column(name = "colisao_terceiros")
+    @Column(name = "colisao_terceiros", precision = 12, scale = 2)
     private BigDecimal colisaoTerceiros;
 
     public CoberturaEntity() {

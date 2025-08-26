@@ -32,7 +32,7 @@ public class ApoliceController {
         return new ResponseEntity<>(outMapper.domainToOutbound(apoliceDomain), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<List<ApoliceConsulta>> listaApolice(UUID id) {
-        return ResponseEntity.ok(apoliceUseCase.apoliceDetalhada(id).stream().toList());
+    public ResponseEntity<ApoliceConsulta> listaApolice(UUID id) {
+        return ResponseEntity.ok(apoliceUseCase.apoliceDetalhada(id));
     }
 }

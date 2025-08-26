@@ -29,7 +29,7 @@ public class ApoliceResource implements V1Api {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<ApoliceConsulta>> listaApolice(UUID id) {
+    public ResponseEntity<ApoliceConsulta> listaApolice(UUID id) {
         return  controller.listaApolice(id);
     }
 }

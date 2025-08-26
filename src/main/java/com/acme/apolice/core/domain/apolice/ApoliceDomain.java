@@ -4,6 +4,8 @@ import com.acme.apolice.adapter.inbound.CategoriaSeguro;
 import com.acme.apolice.adapter.inbound.TipoCanalVendas;
 import com.acme.apolice.adapter.inbound.TipoPagamento;
 import com.acme.apolice.core.domain.cobertura.CoberturaDomain;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -18,7 +20,11 @@ public class ApoliceDomain {
     private CategoriaSeguro categoria;
     private TipoCanalVendas origem;
     private TipoPagamento metodoPagemento;
+    @Digits(integer = 12, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.00")
     private BigDecimal valorTotalPremioMensal;
+    @Digits(integer = 12, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.00")
     private BigDecimal valorSegurado;
     private CoberturaDomain cobertura;
     private Set<String> assistencias;

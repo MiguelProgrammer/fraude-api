@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,7 +19,7 @@ public class ClienteResource implements V1Api {
     private ClienteController controller;
 
     @GetMapping("/{idCliente}/apolice")
-    public ResponseEntity<List<ApoliceConsulta>> listaApolicePorCliente(UUID idCliente) {
+    public ResponseEntity<ApoliceConsulta> listaApolicePorCliente(UUID idCliente) {
         return controller.listaApolicePorCliente(idCliente);
     }
 }

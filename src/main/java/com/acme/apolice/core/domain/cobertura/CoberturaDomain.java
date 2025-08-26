@@ -1,11 +1,22 @@
 package com.acme.apolice.core.domain.cobertura;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Digits;
+
 import java.math.BigDecimal;
 
 public class CoberturaDomain {
 
+    @Digits(integer = 12, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.00")
     private BigDecimal roubo;
+
+    @Digits(integer = 12, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.00")
     private BigDecimal perdaTotal;
+
+    @Digits(integer = 12, fraction = 2)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "#0.00")
     private BigDecimal colisaoTerceiros;
 
     public CoberturaDomain() {

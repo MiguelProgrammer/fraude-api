@@ -79,9 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ApoliceConsulta"
+                $ref: "#/components/schemas/ApoliceConsulta"
         '400':
           description: Erro tentar localizar apólice
         '404':
@@ -108,9 +106,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ApoliceConsulta"
+                $ref: "#/components/schemas/ApoliceConsulta"
         '400':
           description: Erro tentar localizar apólice
         '404':

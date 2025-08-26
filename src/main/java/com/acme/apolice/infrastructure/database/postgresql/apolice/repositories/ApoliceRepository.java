@@ -6,11 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Set;
 import java.util.UUID;
 
 public interface ApoliceRepository extends JpaRepository<ApoliceEntity, UUID> {
 
     @Query("select a from ApoliceEntity a where a.apoliceId = :id or a.clienteId = :id")
-    Set<ApoliceConsultaProjection> findByApolice(@Param("id") UUID id);
+    ApoliceConsultaProjection findByApolice(@Param("id") UUID id);
 }
