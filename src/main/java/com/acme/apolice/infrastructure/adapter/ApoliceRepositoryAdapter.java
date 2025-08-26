@@ -28,8 +28,7 @@ public class ApoliceRepositoryAdapter implements ApoliceRepositoryPort {
 
     @Override
     public ApoliceConsultaProjection listaApolice(UUID id) {
-        ApoliceConsultaProjection byApolice = apoliceRepository.findByApolice(id);
-        return byApolice;
+        return apoliceRepository.findByApolice(id);
     }
 
 }

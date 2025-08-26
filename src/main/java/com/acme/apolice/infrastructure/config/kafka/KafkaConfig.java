@@ -16,6 +16,8 @@ import java.util.Map;
 @Configuration
 public class KafkaConfig {
 
+    public static final String APOLICE_ENQUADRAMENTO_TOPIC = "apolice.enquadramento";
+
     @Bean
     public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -33,9 +35,9 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic meuTopico() {
-        return TopicBuilder.name("apolice.enquadramento")
-                .partitions(3)         // número de partições
-                .replicas(1)           // fator de replicação
+        return TopicBuilder.name(APOLICE_ENQUADRAMENTO_TOPIC)
+                .partitions(3)
+                .replicas(1)
                 .build();
     }
 }
