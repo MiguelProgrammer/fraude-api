@@ -1,6 +1,9 @@
 package com.acme.apolice.adapter.controller;
 
-import com.acme.apolice.adapter.inbound.*;
+import com.acme.apolice.adapter.inbound.Apolice;
+import com.acme.apolice.adapter.inbound.ApoliceConsulta;
+import com.acme.apolice.adapter.inbound.ApoliceInMapper;
+import com.acme.apolice.adapter.inbound.ApoliceResponse;
 import com.acme.apolice.adapter.outbound.ApoliceOutMapperDto;
 import com.acme.apolice.core.domain.apolice.ApoliceDomain;
 import com.acme.apolice.core.usecase.ApoliceUseCase;
@@ -30,7 +33,6 @@ public class ApoliceController {
     }
 
     public ResponseEntity<List<ApoliceConsulta>> listaApolice(UUID id) {
-        List<ApoliceConsulta> listaApolice = apoliceUseCase.apoliceDetalhada(id).stream().toList();
-        return ResponseEntity.ok(listaApolice);
+        return ResponseEntity.ok(apoliceUseCase.apoliceDetalhada(id).stream().toList());
     }
 }

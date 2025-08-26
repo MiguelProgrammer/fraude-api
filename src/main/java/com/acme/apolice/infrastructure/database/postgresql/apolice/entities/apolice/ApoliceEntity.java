@@ -4,6 +4,7 @@ import com.acme.apolice.adapter.inbound.CategoriaSeguro;
 import com.acme.apolice.adapter.inbound.TipoPagamento;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.cobertura.CoberturaEntity;
 import com.acme.apolice.infrastructure.database.postgresql.apolice.entities.historico.HistoricoEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -25,6 +26,9 @@ public class ApoliceEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Column(name = "apolice_id")
+    private UUID apoliceId;
 
     @Column(name = "cliente")
     private UUID clienteId;
@@ -59,14 +63,16 @@ public class ApoliceEntity implements Serializable {
     @Column(name = "data_fim")
     private OffsetDateTime dataFinalizacao;
 
-    @OneToMany(mappedBy = "apolice", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "apolice", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<HistoricoEntity> historico = new HashSet<>();
 
     public ApoliceEntity() {
     }
 
-    public ApoliceEntity(UUID id, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaEntity cobertura, Set<String> assistencias, OffsetDateTime dataCriacao, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
+    public ApoliceEntity(UUID id, UUID apoliceId, UUID clienteId, UUID produtoId, CategoriaSeguro categoria, TipoPagamento metodoPagemento, BigDecimal valorTotalPremioMensal, BigDecimal valorSegurado, CoberturaEntity cobertura, Set<String> assistencias, OffsetDateTime dataCriacao, OffsetDateTime dataFinalizacao, Set<HistoricoEntity> historico) {
         this.id = id;
+        this.apoliceId = apoliceId;
         this.clienteId = clienteId;
         this.produtoId = produtoId;
         this.categoria = categoria;
@@ -86,6 +92,14 @@ public class ApoliceEntity implements Serializable {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getApoliceId() {
+        return apoliceId;
+    }
+
+    public void setApoliceId(UUID apoliceId) {
+        this.apoliceId = apoliceId;
     }
 
     public UUID getClienteId() {

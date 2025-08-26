@@ -87,7 +87,7 @@ paths:
         '404':
           description: Não foi possível localizar apólice
 
-  /v1/clientes/{idCliente}/apolice:
+  /v1/cliente/{idCliente}/apolice:
     get:
       tags:
         - apolice-consulta-cliente

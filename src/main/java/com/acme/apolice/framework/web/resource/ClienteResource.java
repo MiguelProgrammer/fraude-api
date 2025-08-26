@@ -1,6 +1,6 @@
 package com.acme.apolice.framework.web.resource;
 
-import com.acme.apolice.adapter.controller.ApoliceController;
+import com.acme.apolice.adapter.controller.ClienteController;
 import com.acme.apolice.adapter.inbound.ApoliceConsulta;
 import com.acme.apolice.controller.V1Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/v1/clientes")
+@RequestMapping("/v1/cliente")
 public class ClienteResource implements V1Api {
 
     @Autowired
-    private ApoliceController controller;
+    private ClienteController controller;
 
     @GetMapping("/{idCliente}/apolice")
     public ResponseEntity<List<ApoliceConsulta>> listaApolicePorCliente(UUID idCliente) {
-        return V1Api.super.listaApolicePorCliente(idCliente);
+        return controller.listaApolicePorCliente(idCliente);
     }
 }
